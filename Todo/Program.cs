@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Todo.DbContexts;
 
 namespace Todo
 {
@@ -10,6 +11,7 @@ namespace Todo
             var builder = WebApplication.CreateBuilder();
             // 1 - Configurar a Injeção de Dependencia: sempre realizada no builder.Services
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<ApiDbContext>();
 
 
             var app = builder.Build();

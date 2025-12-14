@@ -2,7 +2,7 @@
 
 namespace Todo.Controllers
 {
-    [Route("/api/todo/")]
+    [Route("/api/todo")]
     public class ApiControllers : ControllerBase
     {
 
@@ -20,7 +20,7 @@ namespace Todo.Controllers
         }
 
         [HttpPost("{id}")]
-        public ActionResult Create(TodoItem item)
+        public ActionResult Create([FromBody] TodoItem item)
         {
             
             return Ok();
