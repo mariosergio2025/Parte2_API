@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Todo.DbContexts;
+using Todo.Middleware;
 
 namespace Todo
 {
@@ -43,6 +44,9 @@ namespace Todo
                 var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 options.IncludeXmlComments(xmlFile);
             });
+            // 
+
+
             // CORS - CROSS ORIGIN RESOURCE SHARING - compartilha recurso entre sites diferentes
             builder.Services.AddCors(option =>
             {
@@ -57,6 +61,8 @@ namespace Todo
             });
 
             var app = builder.Build();
+            //Adicionando um Middleware
+            app.UseMiddleware<DemoMiddleware>();
             app.UseCors(CORS_POLICY_NAME);
             // para utilizar Swagger
             app.UseSwagger();
