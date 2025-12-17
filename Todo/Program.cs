@@ -10,6 +10,7 @@ namespace Todo
 {
     internal class Program
     {
+        const string CORS_POLICY_NAME = "PoliticaPadrao"; //boa pratica para não ocorrer erro
         static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder();
@@ -42,8 +43,22 @@ namespace Todo
                 var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
                 options.IncludeXmlComments(xmlFile);
             });
+            // CORS - CROSS ORIGIN RESOURCE SHARING - compartilha recurso entre sites diferentes
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy(CORS_POLICY_NAME, policy =>
+                {
+                    policy.AllowAnyHeader();
+                    // policy.AllowAnyOrigin(); permite todas as origem para restringir
+                    policy.WithOrigins("http://www.uol.com.br", "https://localhost/3000"); //coloca quantos quiser separado por virgulas
+
+                    policy.AllowAnyMethod();
+                });
+            });
 
             var app = builder.Build();
+            app.UseCors(CORS_POLICY_NAME);
+            // para utilizar Swagger
             app.UseSwagger();
             app.UseSwaggerUI();
             // 2 - Aplicar/ usar as dependencia 
