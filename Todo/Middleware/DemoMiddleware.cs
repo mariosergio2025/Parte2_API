@@ -27,11 +27,15 @@ namespace Todo.Middleware
 
             // antes a requisição para proximo
             logger.LogError("logica que é executada antes que a request seguir para o proximo");
-            if (DateAndTime.Now.Hour >= 20) //exemplo curto circuito
-            {
-                await context.Response.WriteAsync("Já passou das 20!");   
-                return;
-            }
+            
+            //exemplo curto circuito
+            //if (DateAndTime.Now.Hour >= 20) 
+            //{
+            //    await context.Response.WriteAsync("Já passou das 20!");   
+            //     return;
+            //  }
+           
+            
             await next(context);
             // depois que a requisição voltar para o proximo
             logger.LogError("logica que é executada depois, quando a request volta");

@@ -62,6 +62,7 @@ namespace Todo
 
             var app = builder.Build();
             //Adicionando um Middleware
+            app.UseMiddleware<MaintenanceMiddleware>();
             app.UseMiddleware<DemoMiddleware>();
             app.UseCors(CORS_POLICY_NAME);
             // para utilizar Swagger
